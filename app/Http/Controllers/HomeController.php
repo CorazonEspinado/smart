@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp;
+use GuzzleHttp\Client;
+use App\Http\Classes\Delfi;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = new Delfi();
+        $response=$posts->Rss();
+//        $xml = simplexml_load_string($response);
+//        $json = json_encode($xml);
+//        $array = json_decode($json,TRUE);
+//        dd($array);
+        return view('home', compact('response'));
     }
 }

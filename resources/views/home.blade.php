@@ -20,4 +20,6 @@
         </div>
     </div>
 </div>
+@dd($response,  LIBXML_NOCDATA);
+
 @endsection
