@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use App\Http\Classes\Delfi;
 use App\Helpers\Xml;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Channel;
 
 
 class HomeController extends Controller
@@ -34,17 +35,30 @@ class HomeController extends Controller
         $arr = $posts->Rss();
         $con = json_encode($arr);
         $newArr = json_decode($con, true);
-        $array=$newArr['channel']['item'];
+        $array = $newArr['channel']['item'];
         if (is_array($array)) {
-            $title=$array['title'];
-            $description=$array['description'];
-            $link=$array['link'];
+            $title = $array['title'];
+            $description = $array['description'];
+            $link = $array['link'];
         }
-           return view('home', compact('array','title','description','link'));
+        return view('home', compact('array', 'title', 'description', 'link'));
     }
 
-    public function Profile() {
-     $user=Auth::user();
-       return view ('profile', compact('user'));
+    public function Profile()
+    {
+        $postArray=[];
+        $user = Auth::user();
+        $channels = Channel::get();
+        foreach ($channels as $myChannel) {
+           $posts=new Delfi();
+           $myPosts=$posts->myRss($myChannel->channel_slug);
+           array_push($postArray,$myPosts);
+        }
+        return view('profile', compact('user', 'channels', 'postArray'));
+    }
+
+    public function userSettings(Request $request) {
+
+dd($request->all());
     }
 }

@@ -39,3 +39,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+$(document ).ready(function() {
+
+    $('#save_channels').click(function() {
+        var val = [];
+        $(':checkbox:checked').each(function(i){
+            val[i] = $(this).val();
+             });
+        axios({
+            method: 'post',
+            url: '/userSettings',
+            data: val
+        });
+    })
+});

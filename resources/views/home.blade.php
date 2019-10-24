@@ -8,7 +8,7 @@
                     <div class="card-header">
                       <a href="{{$link}}">
                         <h3>{{$title}}</h3>
-                        <p>{{$description}}</p>
+                        <p style="text-align: justify">{{htmlspecialchars_decode($description)}}</p>
                       </a>
                     </div>
 
@@ -28,7 +28,7 @@
 
                                <a href="{{$value['link']}}">
                                 <h5 class="card-title">{{$value['title']}}</h5>
-                                                    <p>{{$value['description']}}</p>
+                                                    <p style="text-align: justify">{{htmlspecialchars_decode($value['description'])}}</p>
                                </a>
 
                             @endif
@@ -46,10 +46,7 @@
             </div>
         </div>
 
-                {{--            {{$count}}--}}
-{{--                {{$value['title']}}--}}
-
-    </div>
+     </div>
 
 
 

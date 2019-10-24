@@ -21,3 +21,4 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile','HomeController@profile')->name('profile');
+Route::post('userSettings','HomeController@userSettings' )->name('userSettings');
