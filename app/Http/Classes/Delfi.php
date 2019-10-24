@@ -3,6 +3,7 @@
 namespace App\Http\Classes;
 
 use GuzzleHttp\Client;
+use App\Models\Channel;
 
 class Delfi
 {
@@ -23,10 +24,11 @@ class Delfi
         return $response;
     }
 
-    public function myRss($slug){
+    public function myRss($id){
+        $channel=Channel::where('id', $id)->first();
         $client = new Client();
         $result = $client->request('GET',
-            $this->url.$slug,
+            $this->url.$channel->channel_slug,
             [
                 'headers' => ['Accept' => 'application/rss+xml'],
 //                'timeout' => 120

@@ -24,7 +24,7 @@
 
 
                            @foreach ($channels as $channel)
-                               <input type="checkbox" value="{{$channel->id}}" name="channel[]" id="channel">{{$channel->channel_name}}
+                               <input type="checkbox" value="{{$channel->id}}" name="channel[]" id="channel" checked>{{$channel->channel_name}}
                                @endforeach
                         <button type="button" id="save_channels">Saglabāt</button>
 

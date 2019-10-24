@@ -51,6 +51,9 @@ $(document ).ready(function() {
             method: 'post',
             url: '/userSettings',
             data: val
-        });
+        }).then(function (response) {
+            alert('OK');
+            location.reload();
+        })
     })
 });
