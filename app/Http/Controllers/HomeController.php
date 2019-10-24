@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use GuzzleHttp;
 use GuzzleHttp\Client;
 use App\Http\Classes\Delfi;
+use App\Helpers\Xml;
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
@@ -27,12 +29,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //calling for class Delfi
         $posts = new Delfi();
-        $response=$posts->Rss();
-//        $xml = simplexml_load_string($response);
-//        $json = json_encode($xml);
-//        $array = json_decode($json,TRUE);
-//        dd($array);
-        return view('home', compact('response'));
+        $arr = $posts->Rss();
+        $con = json_encode($arr);
+        $newArr = json_decode($con, true);
+        $array=$newArr['channel']['item'];
+        if (is_array($array)) {
+            $title=$array['title'];
+            $description=$array['description'];
+            $link=$array['link'];
+        }
+           return view('home', compact('array','title','description','link'));
+    }
+
+    public function Profile() {
+     $user=Auth::user();
+     return view ('profile', compact('user'));
     }
 }
