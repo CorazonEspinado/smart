@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp;
 use GuzzleHttp\Client;
 use App\Http\Classes\Delfi;
-use App\Helpers\Xml;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Channel;
 
@@ -59,6 +59,11 @@ class HomeController extends Controller
 
     public function userSettings(Request $request) {
 
-dd($request->all());
+        $profile = User::where(['id'=>Auth::user()->id])->first('id');
+        $profile->settings=json_encode(array('settings' => $request->all()));
+        $profile->update();
+
+return json(['200'])
+
     }
 }
