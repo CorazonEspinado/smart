@@ -46,16 +46,24 @@ class HomeController extends Controller
 
     public function Profile()
     {
-       $channels=Channel::all();
+        $channels = Channel::all();
         $postArray = [];
         $posts = new Delfi();
         $user = Auth::user();
-        $userSettings = json_decode(Auth::user()->settings);
-        foreach ($userSettings->settings as $setting) {
-            $myPosts = $posts->myRss($setting);
-            array_push($postArray, $myPosts);
+        if (!empty(Auth::user()->settings)) {
+            $userSettings = json_decode(Auth::user()->settings);
+            foreach ($userSettings->settings as $setting) {
+                $myPosts = $posts->myRss($setting);
+                array_push($postArray, $myPosts);
+            }
+        } else {
+            $userChannels = Channel::all();
+            foreach ($userChannels as $userChannel) {
+                $myPosts = $posts->myRss($userChannel->id);
+                array_push($postArray, $myPosts);
+            }
         }
-        return view('profile', compact('user', 'channels', 'postArray'));
+        return view('profile', compact('user', 'channels', 'postArray','userSettings'));
     }
 
     public function userSettings(Request $request)
@@ -64,7 +72,10 @@ class HomeController extends Controller
         $profile = User::where(['id' => Auth::user()->id])->first('id');
         $profile->settings = json_encode(array('settings' => $request->all()));
         $profile->update();
-        return Response()->json(['success', 'message' => 'OK' ], 200);
+//        return  ($request->all());
+        return Response()->json(['success', 'message' => 'OK'], 200);
 
     }
+
+
 }
