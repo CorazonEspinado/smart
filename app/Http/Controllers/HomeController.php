@@ -61,7 +61,6 @@ class HomeController extends Controller
             $userChannels = Channel::all();   //New user has no settings, therefore all rss feed is presented
             foreach ($userChannels as $userChannel) {
                 $myPosts = $posts->myRss($userChannel->id);  //getting rss feed from prefered channels
-                $myPosts=array_slice($myPosts, -1,5);
                 array_push($postArray, $myPosts);
             }
         }
