@@ -17,11 +17,10 @@ class Delfi
             $this->url.'delfi',
             [
                 'headers' => ['Accept' => 'application/rss+xml'],
-//                'timeout' => 120
-            ])->getBody()->getContents(10);
+                ])->getBody()->getContents();
         $res = new \SimpleXMLElement($result);
         $response=xml2array($res); //helper Xml
-        return $response;
+         return $response;
     }
 
     public function myRss($id){
@@ -31,7 +30,6 @@ class Delfi
             $this->url.$channel->channel_slug,
             [
                 'headers' => ['Accept' => 'application/rss+xml'],
-//                'timeout' => 120
             ])->getBody()->getContents();
         $res = new \SimpleXMLElement($result);
         $response=xml2array($res); //helper Xml

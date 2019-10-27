@@ -8,7 +8,6 @@ function XML2Array(SimpleXMLElement $parent)
         ($node = & $array[$name])
         && (1 === count($node) ? $node = array($node) : 1)
         && $node = & $node[];
-
         $node = $element->count() ? XML2Array($element) : trim($element);
     }
 

@@ -21,13 +21,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-
-
-                           @foreach ($channels as $channel)
-                               <input type="checkbox" value="{{$channel->id}}" name="channel[]" id="channel">{{$channel->channel_name}}
-                               @endforeach
+                        @foreach ($channels as $channel)
+                            @foreach($settingsDefined as $defined)
+                                <input type="checkbox" value="{{$channel->id}}" name="channel[]"
+                                       id="channel" {{in_array($channel->id, $defined ) ? 'checked' :false}}>
+                                {{$channel->channel_name}}
+                            @endforeach
+                        @endforeach
                         <button type="button" id="save_channels">Saglabāt</button>
-
                     </div>
                 </div>
             </div>
@@ -36,31 +37,27 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-
-@foreach($postArray as $count=>$array)
-<h3 style="color: red">{{$array['channel']['title']}}</h3>
-    @foreach ($array as $arr)
-        <a href="{{$arr['item']['link']}}">
-           <h3>{{$arr['item']['title']}}</h3>
-    <p style="text-align: justify">{{htmlspecialchars_decode($arr['item']['description'])}}</p>
-        </a>
-                       @foreach ($arr['item'] as $itemCount=>$item)
-                          @if (is_numeric($itemCount))
-                    <a href="{{$item['link']}}">
-                     <h3>{{$item['title']}}</h3>
-                              <p>{{$item['description']}}</p>
-                    </a>
+                        @foreach($postArray as $count=>$array)
+                            <h3 style="color: red">{{$array['channel']['title']}}</h3>
+                            @foreach ($array as $arr)
+                                <a href="{{$arr['item']['link']}}">
+                                    <h3>{{$arr['item']['title']}}</h3>
+                                    <p style="text-align: justify">{{htmlspecialchars_decode($arr['item']['description'])}}</p>
+                                </a>
+                                @foreach (array_slice($arr['item'], 0, 9) as $itemCount=>$item)
+                                    @if (is_numeric($itemCount))
+                                        <a href="{{$item['link']}}">
+                                            <h3>{{$item['title']}}</h3>
+                                            <p style="text-align: justify">{{htmlspecialchars_decode($item['description'])}}</p>
+                                        </a>
                                     @endif
-
-                           @endforeach
-        @endforeach
-
-    @endforeach
+                                @endforeach
+                               @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 @endsection

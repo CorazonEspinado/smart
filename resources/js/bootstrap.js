@@ -53,26 +53,8 @@ $(document ).ready(function() {
             data: val
         }).then(function (response) {
             alert('OK');
-
-            console.log(response);
-            $.each(response.data, function(index, item) {
-                // console.log(index);
-                console.log(item);
-                $('#channel').attr('checked', true);
-
-            });
-            location.reload();
+          location.reload();
         })
     })
 
-  //   $('#profile_settings').click(function() {
-  //       // alert('a');
-  // axios({
-  //     method: 'GET',
-  //     url: 'getSettings',
-  // }).then(function (response) {
-  //     console.log(response);
-  //     alert('b');
-  // })
-  //   })
 });
