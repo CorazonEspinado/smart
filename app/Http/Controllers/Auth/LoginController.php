@@ -42,8 +42,6 @@ class LoginController extends Controller
 
     public function redirectToProvider()
     {
-
-//
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -56,13 +54,11 @@ class LoginController extends Controller
     {
 
         $userSocial = Socialite::driver('facebook')->user();
-//dd($userSocial);
         $findUser = User::where('email', $userSocial->email)->first();
 
         if ($findUser) {
             Auth::login($findUser);
             return redirect('/home');
-
         } else {
             $user = new User();
             $user->name = $userSocial->name;
@@ -72,7 +68,6 @@ class LoginController extends Controller
             $user->save();
             Auth::login($user);
         }
-
         // $user->token;
         return redirect('/home');
     }
