@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         @if ($user->avatar)
-                            <p><img src="{{$user->avatar}}" height="100" width="100"></p>
+                            <p><img src="{{$user->avatar}}" height="100" width="100" alt="user"></p>
                         @endif
                         @if ($user->name)
                             <p>Name: {{$user->name}}</p>
