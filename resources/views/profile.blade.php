@@ -21,12 +21,18 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+
                         @foreach ($channels as $channel)
-                            @foreach($userSettings as $defined)
-                                <input type="checkbox" value="{{$channel->id}}" name="channel[]"
-                                       id="channel" {{in_array($channel->id, $defined ) ? 'checked' :false}}>
-                                {{$channel->channel_name}}
-                            @endforeach
+                            @if ($userSettings)
+                                @foreach($userSettings as $defined)
+                                    <input type="checkbox" value="{{$channel->id}}" name="channel[]"
+                                           id="channel" {{in_array($channel->id, $defined ) ? 'checked' :false}}>
+                                    {{$channel->channel_name}}
+                                @endforeach
+                            @else
+                                <input type="checkbox" value="{{$channel->id}}" name="channel[]" id="channel"
+                                       checked>{{$channel->channel_name}}
+                            @endif
                         @endforeach
                         <button type="button" id="save_channels">Saglabāt</button>
                     </div>
@@ -52,7 +58,7 @@
                                         </a>
                                     @endif
                                 @endforeach
-                               @endforeach
+                            @endforeach
                         @endforeach
                     </div>
                 </div>

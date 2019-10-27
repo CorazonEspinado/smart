@@ -33,7 +33,7 @@ class HomeController extends Controller
         //calling for class Delfi
         $posts = new Delfi();
         $arr = $posts->Rss(); //getting all rss feed
-        $array =  array_slice($arr['channel']['item'],0, 14);
+        $array = array_slice($arr['channel']['item'], 0, 14);
         if (is_array($array)) {  //check if components are in array due to some delfi news are out of array
             $title = $array['title'];
             $description = $array['description'];
@@ -48,16 +48,15 @@ class HomeController extends Controller
         $postArray = [];
         $posts = new Delfi();
         $user = Auth::user();
-        $userSettings = json_decode(Auth::user()->settings); //getting user prefered channels
-        if (!empty(Auth::user()->settings)) {      // Registered users already have some settings
-              foreach ($userSettings->settings as $setting) {
+        $userSettings = json_decode($user->settings); //getting user prefered channels
+        if (!empty($user->settings)) {      // Registered users already have some settings
+            foreach ($userSettings->settings as $setting) {
                 $myPosts = $posts->myRss($setting);
-               array_push($postArray, $myPosts);
+                array_push($postArray, $myPosts);
             }
         } else {
-            $userChannels = Channel::all();   //New user has no settings, therefore all rss feed is presented
-            foreach ($userChannels as $userChannel) {
-                $myPosts = $posts->myRss($userChannel->id);  //getting rss feed from prefered channels
+            foreach ($channels as $userChannel) {
+                $myPosts = $posts->myRss($userChannel->id);  //getting rss feed from prefered channels,New user has no settings, therefore all rss feed is presented
                 array_push($postArray, $myPosts);
             }
         }
