@@ -33,9 +33,7 @@ class HomeController extends Controller
         //calling for class Delfi
         $posts = new Delfi();
         $arr = $posts->Rss(); //getting all rss feed
-        $con = json_encode($arr);
-        $newArr = json_decode($con, true);
-        $array =  array_slice($newArr['channel']['item'],0, 14);
+        $array =  array_slice($arr['channel']['item'],0, 14);
         if (is_array($array)) {  //check if components are in array due to some delfi news are out of array
             $title = $array['title'];
             $description = $array['description'];
