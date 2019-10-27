@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-header">
                         @foreach ($channels as $channel)
-                            @foreach($settingsDefined as $defined)
+                            @foreach($userSettings as $defined)
                                 <input type="checkbox" value="{{$channel->id}}" name="channel[]"
                                        id="channel" {{in_array($channel->id, $defined ) ? 'checked' :false}}>
                                 {{$channel->channel_name}}

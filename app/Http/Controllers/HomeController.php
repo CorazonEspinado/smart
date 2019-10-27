@@ -48,10 +48,9 @@ class HomeController extends Controller
         $postArray = [];
         $posts = new Delfi();
         $user = Auth::user();
-        $settingsDefined = json_decode(Auth::user()->settings); //getting user prefered channels
+        $userSettings = json_decode(Auth::user()->settings); //getting user prefered channels
         if (!empty(Auth::user()->settings)) {      // Registered users already have some settings
-            $userSettings = json_decode(Auth::user()->settings);
-            foreach ($userSettings->settings as $setting) {
+              foreach ($userSettings->settings as $setting) {
                 $myPosts = $posts->myRss($setting);
                array_push($postArray, $myPosts);
             }
@@ -62,7 +61,7 @@ class HomeController extends Controller
                 array_push($postArray, $myPosts);
             }
         }
-        return view('profile', compact('user', 'channels', 'postArray', 'userSettings', 'settingsDefined'));
+        return view('profile', compact('user', 'channels', 'postArray', 'userSettings'));
     }
 
     public function userSettings(Request $request)
