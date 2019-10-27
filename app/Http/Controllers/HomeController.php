@@ -30,11 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //calling for class Delfi
-        $posts = new Delfi();
+        $posts = new Delfi();//calling for class Delfi
         $arr = $posts->Rss(); //getting all rss feed
         $array = array_slice($arr['channel']['item'], 0, 14);
-        if (is_array($array)) {  //check if components are in array due to some delfi news are out of array
+        if (is_array($array)) {  //check if tlements are in array due to some delfi news are outside of array
             $title = $array['title'];
             $description = $array['description'];
             $link = $array['link'];
